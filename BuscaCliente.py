@@ -1,9 +1,8 @@
 import requests
-
-# Define o dicionário vazio para armazenar os dados do cliente
-cliente = {}
+import csv
 
 # Solicita os dados do cliente
+cliente = {}
 cliente["nome"] = input("Digite o nome do cliente: ")
 cliente["cep"] = input("Digite o CEP do cliente (no formato 00000-000): ")
 cliente["numero_casa"] = input("Digite o número da casa do cliente: ")
@@ -27,3 +26,8 @@ if response.status_code == 200:
     print(endereco_formatado)
 else:
     print("Não foi possível encontrar o endereço para o CEP informado.")
+
+# Escreve os dados do cliente no arquivo CSV
+with open("Cadastro.csv", mode="a", newline="", encoding="utf8") as arquivo:
+    writer = csv.writer(arquivo)
+    writer.writerow([cliente["nome"], cliente["cep"], cliente["numero_casa"], cliente["endereco"]])
